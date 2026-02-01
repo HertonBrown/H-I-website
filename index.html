@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form PoC</title>
+<style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f4f4f4; }
+        form { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .field { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, textarea { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { background: #007bff; color: white; border: none; padding: 12px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+        button:hover { background: #0056b3; }
+</style>
+</head>
+<body>
+ 
+    <form action="https://forminit.com/f/5yd6r238ep5" method="POST" accept-charset="UTF-8">
+<div class="field">
+<label>First Name</label>
+<input type="text" name="fi-sender-firstName" required>
+</div>
+ 
+        <div class="field">
+<label>Last Name</label>
+<input type="text" name="fi-sender-lastName" required>
+</div>
+ 
+        <div class="field">
+<label>Email Address</label>
+<input type="email" name="fi-sender-email" required>
+</div>
+ 
+        <div class="field">
+<label>Phone Number</label>
+<input type="tel" name="fi-sender-phone">
+</div>
+ 
+        <div class="field">
+<label>Inquiry</label>
+<textarea name="fi-sender-message" rows="4" required></textarea>
+</div>
+<input type="hidden" name="_gotcha" style="display:none !important">
+<button type="submit">Send Inquiry</button>
+</form>
+ 
+</body>
+</html>

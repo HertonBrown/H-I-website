@@ -5,45 +5,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Form PoC</title>
 <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f4f4f4; }
-        form { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f4f4f4; padding: 20px; }
+        #contact-form { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
         .field { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
         input, textarea { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
         button { background: #007bff; color: white; border: none; padding: 12px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
         button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        #form-result { text-align: center; margin-top: 15px; font-weight: bold; min-height: 1.2em; }
+        .success { color: green; }
+        .error { color: red; }
 </style>
 </head>
 <body>
  
-    <form action="https://forminit.com/f/ksx2dnbcq7i" method="POST" accept-charset="UTF-8">
+    <form id="contact-form">
+<h2 style="text-align: center; margin-top: 0;">Contact Us</h2>
 <div class="field">
 <label>First Name</label>
-<input type="text" name="fi-sender-firstName" required>
+<input type="text" name="fi-sender-firstName" required />
 </div>
  
         <div class="field">
 <label>Last Name</label>
-<input type="text" name="fi-sender-lastName" required>
+<input type="text" name="fi-sender-lastName" required />
 </div>
  
         <div class="field">
 <label>Email Address</label>
-<input type="email" name="fi-sender-email" required>
+<input type="email" name="fi-sender-email" required />
 </div>
  
         <div class="field">
 <label>Phone Number</label>
-<input type="tel" name="fi-sender-phone">
+<input type="tel" name="fi-sender-phone" placeholder="+12025550123" />
 </div>
  
         <div class="field">
 <label>Inquiry</label>
-<textarea name="fi-sender-message" rows="4" required></textarea>
+<textarea name="fi-text-message" rows="4" required></textarea>
 </div>
-<input type="hidden" name="_gotcha" style="display:none !important">
-<button type="submit">Send Inquiry</button>
+<button type="submit" id="submit-btn">Send Inquiry</button>
+<p id="form-result"></p>
 </form>
  
+    <script src="https://forminit.com/sdk/v1/forminit.js"></script>
+ 
+    <script>
+        const forminit = new Forminit();
+        const FORM_ID = 'z14casaecg0'; // Your specific Form ID
+        const form = document.getElementById('contact-form');
+        const resultDisplay = document.getElementById('form-result');
+        const submitBtn = document.getElementById('submit-btn');
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            // UI Update
+            submitBtn.disabled = true;
+            resultDisplay.textContent = 'Sending...';
+            resultDisplay.className = '';
+ 
+            const formData = new FormData(form);
+            // Step 3: Use the SDK to submit
+            const { data, error } = await forminit.submit(FORM_ID, formData);
+            submitBtn.disabled = false;
+ 
+            if (error) {
+                // If phone is wrong format, this catches the error
+                resultDisplay.textContent = error.message;
+                resultDisplay.className = 'error';
+                return;
+            }
+            // Step 4: Show success message on the page
+            resultDisplay.textContent = 'Message sent successfully!';
+            resultDisplay.className = 'success';
+            form.reset();
+        });
+</script>
 </body>
 </html>

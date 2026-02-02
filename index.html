@@ -69,7 +69,7 @@
  
             // Automatically add '+' prefix if user forgot it 
             let phoneValue = formData.get('fi-sender-phone');
-            if (phoneValue && !phoneValue.startsWith('+')) {
+            if (phoneValue && !phoneValue.startsWith('+1')) {
                 phoneValue = '+' + phoneValue;
                 formData.set('fi-sender-phone', phoneValue);
             }
